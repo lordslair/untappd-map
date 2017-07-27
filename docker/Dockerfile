@@ -5,8 +5,10 @@ RUN apt-get update && apt-get upgrade -y && rm -rf /var/lib/apt/lists/*
 
 RUN useradd --create-home --shell /bin/bash untappd-map
 
-COPY bashrc.user /home/ra_bot/.bashrc
+COPY bashrc.user /home/untappd-map/.bashrc
+COPY untappd-map /home/untappd-map/untappd-map
+
 COPY bashrc.root /root/.bashrc
 
-ENTRYPOINT ["/start.sh"]
+ENTRYPOINT ["/home/untappd-map/untappd-map"]
 EXPOSE 8000
