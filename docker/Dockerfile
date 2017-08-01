@@ -1,7 +1,9 @@
 FROM debian:stretch-slim
 MAINTAINER @Lordslair
 
-RUN apt-get update && apt-get upgrade -y && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get upgrade -y 
+RUN apt-get install -y libfile-pid-perl
+RUN rm -rf /var/lib/apt/lists/*
 
 RUN useradd --create-home --shell /bin/bash untappd-map
 
