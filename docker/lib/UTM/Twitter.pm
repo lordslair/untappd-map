@@ -32,3 +32,42 @@ sub Reply
     my $status = "\@$user $text";
     my $reply = $twitter->update({ in_reply_to_status_id => $id, status => $status });
 }
+
+sub getMentions
+{
+    my %Mentions;
+    my $lastmsg_id  = $twitter->mentions({ count => 1 });
+    while ( )
+    {
+        my $mentions    = $twitter->mentions({ max_id => $lastmsg_id, count => 20 });
+        for my $mention ( @$mentions )
+        {
+            $Mentions{$mention->{id}}{'sender_id'}  = $mention->{user}{id};
+            $Mentions{$mention->{id}}{'created_at'} = $mention->{created_at};
+            $Mentions{$mention->{id}}{'text'}       = $mention->{text};
+            $Mentions{$mention->{id}}{'sender'}     = $mention->{user}{name};
+
+            $lastmsg_id = $mention->{id} - 1;
+        }
+        if ( scalar(@$mentions) != 20 ) { last }
+    }
+
+    $lastmsg_id  = $twitter->home_timeline({ count => 1 });
+    while ( )
+    {
+        my $replies    = $twitter->home_timeline({ max_id => $lastmsg_id, count => 20 });
+        for my $reply ( @$replies )
+        {
+            my $id = $reply->{in_reply_to_status_id};
+            if ( $id )
+            {
+            # This tweet is already a response to someone's mention
+                $Mentions{$id}{'replied'} = 'yes';
+            }
+            else { }
+            $lastmsg_id = $reply->{id} - 1;
+        }
+        if ( scalar(@$replies) != 20 ) { last }
+    }
+    return \%Mentions;
+}
