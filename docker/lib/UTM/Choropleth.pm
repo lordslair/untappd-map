@@ -37,7 +37,7 @@ sub Colorize
 {
     my $Country_ref = shift;
     my $biggest     = shift;
-    my %Country = %{ $Country_ref };
+    my %Country     = %{ $Country_ref };
 
     use Locale::Country;
 
