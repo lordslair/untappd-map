@@ -57,4 +57,45 @@ sub Colorize
     return \%Country;
 }
 
+sub Draw
+{
+    my $Country_ref = shift;
+    my $input_file  = shift;
+    my $output_file = shift;
+    my %Country     = %{ $Country_ref };
+
+    open my $in_filehandle,  '<', $input_file  or die $!;
+    open my $out_filehandle, '>', $output_file or die $!;
+
+    while ( <$in_filehandle> )
+    {
+        my $input_line = $_;
+        chomp $input_line;
+
+        if ( $input_line =~ /id="\w*.?" class=".*"/ )
+        {
+            my $output_line = $input_line;
+            foreach my $country ( sort keys %Country )
+            {
+                if ( $output_line =~ /id="$Country{$country}{'code'}.?" class=".*$Country{$country}{'code'}.*"/ )
+                {
+                    $output_line =~ s/" class="/" style="fill: #$Country{$country}{'color'}" class="/;
+                }
+                elsif ( $output_line =~ /id="path.*" class="landxx.*$Country{$country}{'code'}.*"/ )
+                {
+                    $output_line =~ s/" class="/" style="fill: #$Country{$country}{'color'}" class="/;
+                }
+            }
+            print $out_filehandle $output_line. "\n";
+        }
+        else
+        {
+            print $out_filehandle $input_line . "\n";
+        }
+    }
+
+    close $in_filehandle;
+    close $out_filehandle;
+}
+
 1;
