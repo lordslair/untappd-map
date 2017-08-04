@@ -77,7 +77,7 @@ sub SenderName
     my $id = shift;
 
     my $user     = $twitter->show_user({ user_id => $id });
-    my $username = $user->{'name'};
+    my $username = $user->{'screen_name'};
 
     return $username;
 }
