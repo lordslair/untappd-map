@@ -41,6 +41,12 @@ sub Colorize
 
     use Locale::Country;
 
+    # We need to redefine some countries names
+    Locale::Country::add_country_alias("Lao People's Democratic Republic", "Laos");
+    Locale::Country::add_country_alias("Russian Federation", "Russia");
+    Locale::Country::add_country_alias("Monaco","Principality of Monaco");
+    Locale::Country::add_country_alias("Republic of Moldova","Moldova");
+
     foreach my $country ( sort keys %Country )
     {
         $Country{$country}{'code'} = country2code($country, LOCALE_CODE_ALPHA_2);
