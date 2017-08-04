@@ -37,7 +37,26 @@ sub Colorize
 {
     my $Country_ref = shift;
     my $biggest     = shift;
-    my %Country     = %{ $Country_ref };
+    my %Country = %{ $Country_ref };
+
+    foreach my $country ( sort keys %Country )
+    {
+        if ( ! $Country{$country}{'code'} )
+        {
+            printf "%-50s %6d\n", $country, $Country{$country}{'count'};
+        }
+        else
+        {
+            $Country{$country}{'color'} = color($Country{$country}{'count'},$biggest);
+        }
+    }
+    return \%Country;
+}
+
+sub Code
+{
+    my $Country_ref = shift;
+    my %Country = %{ $Country_ref };
 
     use Locale::Country;
 
@@ -50,15 +69,6 @@ sub Colorize
     foreach my $country ( sort keys %Country )
     {
         $Country{$country}{'code'} = country2code($country, LOCALE_CODE_ALPHA_2);
-
-        if ( ! $Country{$country}{'code'} )
-        {
-            printf "%-50s %6d\n", $country, $Country{$country}{'count'};
-        }
-        else
-        {
-            $Country{$country}{'color'} = color($Country{$country}{'count'},$biggest);
-        }
     }
     return \%Country;
 }
