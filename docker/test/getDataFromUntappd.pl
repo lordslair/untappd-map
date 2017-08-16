@@ -3,7 +3,7 @@
 use strict;
 use warnings;
 
-use lib '../lib';
+use lib '/home/untappd-map/lib';
 use UTM::Untappd;
 
 #
