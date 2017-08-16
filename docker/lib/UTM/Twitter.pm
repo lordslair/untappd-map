@@ -52,10 +52,10 @@ sub getMentions
         if ( scalar(@$mentions) != 20 ) { last }
     }
 
-    $lastmsg_id  = $twitter->home_timeline({ count => 1 });
+    $lastmsg_id  = $twitter->user_timeline({ count => 1 });
     while ( )
     {
-        my $replies    = $twitter->home_timeline({ max_id => $lastmsg_id, count => 20 });
+        my $replies    = $twitter->user_timeline({ max_id => $lastmsg_id, count => 20 });
         for my $reply ( @$replies )
         {
             my $id = $reply->{in_reply_to_status_id};
