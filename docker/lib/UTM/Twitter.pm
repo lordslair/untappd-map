@@ -82,4 +82,13 @@ sub SenderName
     return $username;
 }
 
+sub SendTweetMedia
+{
+    my $id     = shift;
+    my $text   = shift;
+    my $media  = shift;
+
+    my $update = $twitter->update_with_media({ in_reply_to_status_id => $id, status => $text, media => [ $media ] });
+}
+
 1;
