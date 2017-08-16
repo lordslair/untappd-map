@@ -9,5 +9,7 @@ use Image::LibRSVG;
 # Variables initialization
 #
 
+my $input_file = '/home/untappd-map/data/BlankMap-World6.svg';
+
 my $rsvg = new Image::LibRSVG();
-   $rsvg->convertAtSize("getChoropleth.svg", "getChoropleth.png", 1280, 657);
+   $rsvg->convertAtSize($input_file, "$input_file.png", 2560, 1314);
