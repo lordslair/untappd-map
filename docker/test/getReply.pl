@@ -3,14 +3,14 @@
 use strict;
 use warnings;
 
-use lib '../lib';
+use lib '/home/untappd-map/lib';
 use UTM::Twitter;
 
 #
 # Variables initialization
 #
 
-my $media = 'getChoropleth.png';
+my $media = '/home/untappd-map/test/getChoropleth.png';
 my $id    = $ARGV[0];
 my $text  = 'Kudos, and there\'s your map \o/';
 
