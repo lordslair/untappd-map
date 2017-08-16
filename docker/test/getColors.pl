@@ -3,7 +3,7 @@
 use strict;
 use warnings;
 
-use lib '../lib';
+use lib '/home/untappd-map/lib';
 use UTM::Choropleth;
 
 #
@@ -17,7 +17,8 @@ $Country{'France'}{'count'} = 150;
 $Country{'Belgium'}{'count'} = 10;
 
 my $Country_ref         = \%Country;
-my $Colored_Country_ref = UTM::Choropleth::Colorize($Country_ref,$biggest);
+my $Coded_Country_ref   = UTM::Choropleth::Code($Country_ref);
+my $Colored_Country_ref = UTM::Choropleth::Colorize($Coded_Country_ref,$biggest);
 my %Colored_Country     = %{$Colored_Country_ref};
 
 foreach my $country ( sort keys %Colored_Country )
