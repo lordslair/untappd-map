@@ -10,7 +10,7 @@ use UTM::Twitter;
 # Variables initialization
 #
 
-my $media = '/home/untappd-map/test/getChoropleth.png';
+my $media = '/home/untappd-map/data/BlankMap-World6.svg.png';
 my $id    = $ARGV[0];
 my $text  = 'Kudos, and there\'s your map \o/';
 
