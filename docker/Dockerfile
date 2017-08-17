@@ -2,7 +2,8 @@ FROM debian:stretch-slim
 MAINTAINER @Lordslair
 
 RUN apt-get update && apt-get upgrade -y 
-RUN apt-get install -y libfile-pid-perl vim libnet-twitter-lite-perl libimage-librsvg-perl
+RUN apt-get install -y libfile-pid-perl libnet-twitter-lite-perl libimage-librsvg-perl
+RUn apt-get remove -y --purge vim* mlocate xxd
 RUN rm -rf /var/lib/apt/lists/*
 
 RUN useradd --create-home --shell /bin/bash untappd-map
