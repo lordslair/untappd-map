@@ -57,9 +57,9 @@ until ($dieNow) {
     sleep($sleepMainLoop);
 
     $loop++;
-    logEntry(":o) $loop");
+    logEntry(":o) Entering loop $loop");
 
-    my $Mentions = UTM::Twitter::getMentions or die "Fuck that $!";
+    my $Mentions = UTM::Twitter::getMentions or die "Failed to getMentions $!";
 
     foreach my $id ( sort keys %{$Mentions} )
     {
@@ -99,18 +99,18 @@ until ($dieNow) {
             my $Colored_Country_ref = UTM::Choropleth::Colorize($Coded_Country_ref,$biggest);
             if ( $Colored_Country_ref ) { logEntry("[$username]    Got %Colored_Country" ) }
 
-            UTM::Choropleth::Draw($Colored_Country_ref,$input_file,$output_file) or die "Fuck that $!";
+            UTM::Choropleth::Draw($Colored_Country_ref,$input_file,$output_file) or die "Failed to Draw $!";
             logEntry("[$username]    Choropleth::Draw requested" );
 
             my $rsvg = new Image::LibRSVG();
-               $rsvg->convertAtSize($output_file, "$output_file.png", 2560, 1314) or die "Fuck that $!";
+               $rsvg->convertAtSize($output_file, "$output_file.png", 2560, 1314) or die "Failed to convertAtSize $!";
             logEntry("[$username]    PNG converted" );
 
-            my $twitter_name =  UTM::Twitter::SenderName($Mentions->{$id}{'sender_id'}) or die "Fuck that $!";
+            my $twitter_name =  UTM::Twitter::SenderName($Mentions->{$id}{'sender_id'}) or die "Failed to SenderName $!";
             logEntry("[$username]    Will send to \@$twitter_name" );
 
             my $text  = "\@" . $twitter_name . " Kudos, and there\'s your map \\o/";
-            UTM::Twitter::SendTweetMedia( $id, $text, "$output_file.png");
+            UTM::Twitter::SendTweetMedia( $id, $text, "$output_file.png"); or die "Failed toSendTweetMedia $!";
             logEntry("[$username]    Tweet sent (reply_id:$id)" );
         }
     }
