@@ -1,7 +1,8 @@
 # UntappdMap, the project :
 
-This project is mainly a PoC about using the Twitter API, data from Untappd, and SVG maps
-All of this inside a Docker container for portable purposes
+This project is mainly a PoC about using the Twitter API, data from Untappd, and SVG maps.
+
+All of this inside a Docker container for portable purposes.
 
 Actually, as 1.0, it works this way, as soon as you send your Untappd username to the script via twitter :
 
@@ -13,8 +14,9 @@ Actually, as 1.0, it works this way, as soon as you send your Untappd username t
 
 ### Which script does what ?
 
-I added multiples test scripts as I was coding this to help me, ant test almost every function independantly
-They are located in /test/ folder
+I added multiples test scripts as I was coding this to help me, ant test almost every function independantly.
+
+They are located in /test/ folder.
 
 ```
 ├── data                              |  Map template and results
