@@ -2,7 +2,6 @@
 use strict;
 use warnings;
 
-use POSIX;
 use File::Pid;
 use Image::LibRSVG;
 use Data::Dumper;
@@ -22,18 +21,11 @@ my $pidFilePath   = "/var/run/";                           # PID file path
 my $pidFile       = $pidFilePath . $daemonName . ".pid";
 
 # daemonize
-use POSIX qw(setsid);
 chdir '/';
 umask 0;
 open STDIN,  '/dev/null'   or die "Can't read /dev/null: $!";
 open STDOUT, '>>/dev/null' or die "Can't write to /dev/null: $!";
 open STDERR, '>>/dev/null' or die "Can't write to /dev/null: $!";
-defined( my $pid = fork ) or die "Can't fork: $!";
-exit if $pid;
-
-# dissociate this process from the controlling terminal that started it and stop being part
-# of whatever process group this process was a part of.
-POSIX::setsid() or die "Can't start a new session.";
 
 # callback signal handler for signals.
 $SIG{INT} = $SIG{TERM} = $SIG{HUP} = \&signalHandler;
