@@ -4,17 +4,23 @@ use warnings;
 
 use POSIX;
 use File::Pid;
- 
+use Image::LibRSVG;
+use Data::Dumper;
+
+use lib '/home/untappd-map/lib';
+use UTM::Untappd;
+use UTM::Choropleth;
+use UTM::Twitter;
+
 my $daemonName    = "untappd-map";
-#
 my $dieNow        = 0;                                     # used for "infinte loop" construct - allows daemon mode to gracefully exit
-my $sleepMainLoop = 60;                                    # number of seconds to wait between "do something" execution after queue is clear
+my $sleepMainLoop = 300;                                   # number of seconds to wait between "do something" execution after queue is clear
 my $logging       = 1;                                     # 1= logging is on
-my $logFilePath   = "/home/untappd-map/log/";              # log file path
+my $logFilePath   = "/var/log/";                           # log file path
 my $logFile       = $logFilePath . $daemonName . ".log";
 my $pidFilePath   = "/var/run/";                           # PID file path
 my $pidFile       = $pidFilePath . $daemonName . ".pid";
- 
+
 # daemonize
 use POSIX qw(setsid);
 chdir '/';
@@ -25,26 +31,91 @@ open STDERR, '>>/dev/null' or die "Can't write to /dev/null: $!";
 defined( my $pid = fork ) or die "Can't fork: $!";
 exit if $pid;
 
-#PID gestion 
+# dissociate this process from the controlling terminal that started it and stop being part
+# of whatever process group this process was a part of.
 POSIX::setsid() or die "Can't start a new session.";
+
+# callback signal handler for signals.
 $SIG{INT} = $SIG{TERM} = $SIG{HUP} = \&signalHandler;
 $SIG{PIPE} = 'ignore';
+
+# create pid file in /var/run/
 my $pidfile = File::Pid->new( { file => $pidFile, } );
-$pidfile->write or die "Can't write PID file, /dev/null: $!";
- 
+   $pidfile->write or die "Can't write PID file, /dev/null: $!";
+
+# turn on logging
 if ($logging) {
     open LOG, ">>$logFile";
     select((select(LOG), $|=1)[0]); # make the log file "hot" - turn off buffering
 }
- 
+
+logEntry("Starting daemon");
+
+my $loop;
+# "infinite" loop where some useful process happens
 until ($dieNow) {
     sleep($sleepMainLoop);
 
-    # TODO: put your custom code here!
- 
-    # logEntry("log something"); # use this to log whatever you need to
+    $loop++;
+    logEntry(":o) $loop");
+
+    my $Mentions = UTM::Twitter::getMentions or die "Fuck that $!";
+
+    foreach my $id ( sort keys %{$Mentions} )
+    {
+        my $username;
+
+        if ( $Mentions->{$id}{'replied'} )
+        { #We don't do this one
+        }
+        else
+        {
+            if ( $Mentions->{$id}{'text'} =~ m/!(\w*)/ )
+            {
+                logEntry("  Got a not yet replied mention ($Mentions->{$id}{'text'})" );
+                $username = $1;
+                logEntry("[$username]    Got to reply" );
+            }
+        }
+
+        if ( $username )
+        {
+            my $Country_ref = UTM::Untappd::getData($username);
+            my %Country     = %{$Country_ref};
+            if ( $Country_ref ) { logEntry("[$username]    Got %Country" ) }
+
+            my $biggest     = 0;
+            my $input_file  = '/home/untappd-map/data/BlankMap-World6.svg';
+            my $output_file = "/home/untappd-map/data/$username.svg";
+
+            foreach my $country ( sort keys %Country )
+            {
+                if ( $biggest < $Country{$country}{'count'} ) { $biggest = $Country{$country}{'count'} }
+            }
+
+               $Country_ref         = \%Country;
+            my $Coded_Country_ref   = UTM::Choropleth::Code($Country_ref);
+            if ( $Coded_Country_ref ) { logEntry("[$username]    Got %Coded_Country" ) }
+            my $Colored_Country_ref = UTM::Choropleth::Colorize($Coded_Country_ref,$biggest);
+            if ( $Colored_Country_ref ) { logEntry("[$username]    Got %Colored_Country" ) }
+
+            UTM::Choropleth::Draw($Colored_Country_ref,$input_file,$output_file) or die "Fuck that $!";
+            logEntry("[$username]    Choropleth::Draw requested" );
+
+            my $rsvg = new Image::LibRSVG();
+               $rsvg->convertAtSize($output_file, "$output_file.png", 2560, 1314) or die "Fuck that $!";
+            logEntry("[$username]    PNG converted" );
+
+            my $twitter_name =  UTM::Twitter::SenderName($Mentions->{$id}{'sender_id'}) or die "Fuck that $!";
+            logEntry("[$username]    Will send to \@$twitter_name" );
+
+            my $text  = "\@" . $twitter_name . " Kudos, and there\'s your map \\o/";
+            UTM::Twitter::SendTweetMedia( $id, $text, "$output_file.png");
+            logEntry("[$username]    Tweet sent (reply_id:$id)" );
+        }
+    }
 }
- 
+
 # add a line to the log file
 sub logEntry {
     my ($logText) = @_;
@@ -54,14 +125,19 @@ sub logEntry {
         print LOG "$dateTime $logText\n";
     }
 }
- 
+
 # catch signals and end the program if one is caught.
 sub signalHandler {
+    logEntry("Stop signal caught");
     $dieNow = 1;    # this will cause the "infinite loop" to exit
 }
- 
+
 # do this stuff when exit() is called.
 END {
-    if ($logging) { close LOG }
+    if ($logging)
+    {
+        logEntry("Stopping daemon");
+        close LOG;
+    }
     $pidfile->remove if defined $pidfile;
 }
