@@ -7,7 +7,7 @@ Actually, as 1.0, it works this way, as soon as you send your Untappd username t
 
  - Fetch Country of origin for the beers you've drink on Untappd
  - Sort the data and pick colors accordingly with count
- - Edit a SVG world map (from [Wikimedia](WIKImap))
+ - Edit a SVG world map (from [Wikimedia][WIKImap])
  - Convert the SVG into PNG
  - Reply to your tweet with the PNG as media
 
@@ -36,8 +36,8 @@ They are located in /test/ folder.
 I used mainy :
 
 * Perl - as a lazy animal
-* [Net::Twitter::Lite::WithAPIv1_1;](CPANTwitt) - Easy Twitter API implementation
-* [Image::LibRSVG](CPANrSVG) - SVG to PNG conversion
+* [Net::Twitter::Lite::WithAPIv1_1;][CPANTwitt] - Easy Twitter API implementation
+* [Image::LibRSVG][CPANrSVG] - SVG to PNG conversion
 * [Locale::Country] - Translation from <Countryname> to ALPHA-2 code
 * [YAML::Tiny] - THE easy way to deal with YAML files
 
@@ -52,7 +52,7 @@ And of course GitHub to store all these shenanigans.
 
 ### Useful stuff
    
-   * [Daemon exemple script](daemon) 
+   * [Daemon exemple script][daemon]
    
 ---
    [WIKImap]: <https://commons.wikimedia.org/wiki/Category:Blank_SVG_maps_of_the_world>
