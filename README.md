@@ -42,6 +42,48 @@ I used mainy :
 
 And of course GitHub to store all these shenanigans. 
 
+### Installation
+
+The script is aimed to run in a Docker container. Could work without it, but more practical this way.
+```
+git clone https://github.com/lordslair/untappd-map
+cd untappd-map
+docker build --no-cache -t lordslair/untappd-map .
+```
+
+```
+# docker images
+REPOSITORY              TAG                 IMAGE ID            SIZE
+lordslair/untappd-map   latest              d00e8d4185a7        178.3 MB
+```
+
+```
+docker run --name untappd-map2 -d lordslair/untappd-map
+```
+
+```
+docker ps
+IMAGE                     COMMAND                  CREATED             STATUS              NAMES
+lordslair/untappd-map     "/home/untappd-map/un"   20 hours ago        Up 20 hours         untappd-map
+```
+
+#### Disclaimer/Reminder
+
+>As there's only one script running, it's not wrapped in a start.sh-like script.  
+>There's proably **NULL** interest for anyone to clone it and run the script this way, though.  
+>(It's currently hardcoded to use @UntappdMap Twitter account I registered)  
+>I put the code here mostly for reminder, and to help anyone if they find parts of it useful for their own dev.
+
+### Result
+
+Random generated Choropleth (script included in /test/)  
+
+![World][Screenshot-Map-small]
+
+Invoked on twitter, and the answer with map  
+
+![Twitter answer][Screenshot-Twitter]
+
 ### Todos
 
  - New types of maps
@@ -58,3 +100,6 @@ And of course GitHub to store all these shenanigans.
    [CPANTwitt]: <http://search.cpan.org/~mmims/Net-Twitter-Lite-0.12008/lib/Net/Twitter/Lite/WithAPIv1_1.pod>
    [CPANrSVG]: <http://search.cpan.org/~tomson/Image-LibRSVG-0.07/lib/Image/LibRSVG.pm>
    [daemon]: <http://www.andrewault.net/2010/05/27/creating-a-perl-daemon-in-ubuntu/>
+
+   [Screenshot-Map-small]: <https://raw.githubusercontent.com/lordslair/untappd-map/master/Screenshot-Map-small.PNG>
+   [Screenshot-Twitter]: <https://raw.githubusercontent.com/lordslair/untappd-map/master/Screenshot-Twitter.PNG>
