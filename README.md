@@ -1,6 +1,6 @@
 # UntappdMap, the project :
 
-This project is mainly a PoC about using the Twitter API, data from Untappd, and SVG maps.
+This project is mainly a PoC about using the Twitter API, data from Untappd, and SVG maps.  
 All of this inside a Docker container for portable purposes.
 
 Actually, as 1.0, it works this way, as soon as you send your Untappd username to the script via twitter :
