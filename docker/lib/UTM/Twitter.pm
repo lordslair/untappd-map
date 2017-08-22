@@ -4,8 +4,6 @@ use strict;
 use warnings;
 
 use Net::Twitter::Lite::WithAPIv1_1;
-use Data::Dumper;
-
 use YAML::Tiny;
 
 #
