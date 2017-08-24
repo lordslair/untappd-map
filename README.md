@@ -27,7 +27,7 @@ They are located in /test/ folder.
 ├── log
 ├── test                              |  Bunch of test scripts
 ├── twitter-config.yaml               |  Twitter credentials
-└── untappd-map                       |  Main script, lthe Docker endpoint wo does all the work
+└── untappd-map                       |  Main script, the Docker endpoint who does all the work
 ```
 
 ### Tech
