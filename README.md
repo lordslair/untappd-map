@@ -58,7 +58,7 @@ lordslair/untappd-map   latest              d00e8d4185a7        178.3 MB
 ```
 
 ```
-docker run --name untappd-map2 -d lordslair/untappd-map
+docker run --name untappd-map -d lordslair/untappd-map
 ```
 
 ```
@@ -88,7 +88,7 @@ Invoked on twitter, and the answer with map
 
  - New types of maps
  - lighter container (empty it weights ~175M)
- - logs accessible from outside the conteiner (docker logs stuff)
+ - logs accessible from outside the container (docker logs stuff)
  - /data accessible from outside the container (docker volume stuff)
 
 ### Useful stuff
