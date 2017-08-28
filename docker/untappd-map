@@ -4,7 +4,6 @@ use warnings;
 
 use File::Pid;
 use Image::LibRSVG;
-use Data::Dumper;
 
 use lib '/home/untappd-map/lib';
 use UTM::Untappd;
