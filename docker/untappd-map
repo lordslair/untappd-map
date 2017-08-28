@@ -120,6 +120,13 @@ sub logEntry {
 
 # catch signals and end the program if one is caught.
 sub signalHandler {
+    open DATA, "/home/untappd-map/test/getTwitterRateLimit.pl |" or die "Couldn't execute program: $!";
+        while ( defined( my $line = <DATA> )  )
+        {
+            chomp($line);
+            logEntry($line);
+        }
+    close DATA;
     logEntry("Stop signal caught");
     $dieNow = 1;    # this will cause the "infinite loop" to exit
 }
