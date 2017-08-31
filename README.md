@@ -44,7 +44,8 @@ And of course GitHub to store all these shenanigans.
 
 ### Installation
 
-The script is aimed to run in a Docker container. Could work without it, but more practical this way.
+The script is aimed to run in a Docker container. Could work without it, but more practical this way.  
+
 ```
 git clone https://github.com/lordslair/untappd-map
 cd untappd-map
