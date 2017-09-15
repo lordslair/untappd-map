@@ -6,6 +6,8 @@ use warnings;
 use lib '/home/untappd-map/lib';
 use UTM::Twitter;
 
+binmode(STDOUT, ":utf8");
+
 #
 # Variables initialization
 #
