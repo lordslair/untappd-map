@@ -4,6 +4,7 @@ use strict;
 use warnings;
 
 use Net::Twitter::Lite::WithAPIv1_1;
+use Data::Dumper;
 
 use lib '/home/untappd-map/lib';
 use YAML::Tiny;
