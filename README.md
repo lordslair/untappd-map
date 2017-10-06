@@ -20,10 +20,10 @@ They are located in /test/ folder.
 ├── data                              |  Map template and results
 ├── Dockerfile                        |  To build the docker container
 ├── lib
-│   ├── UTM
-│   │   ├── Choropleth.pm             |  UTM::Choropleth to colorize, and create the SVG
-│   │   ├── Twitter.pm                |  UTM::Twitter    to check mentions, and reply
-│   │   └── Untappd.pm                |  UTM::Untappd    to fetch data from Untappd
+│   └── UTM
+│       ├── Choropleth.pm             |  UTM::Choropleth to colorize, and create the SVG
+│       ├── Twitter.pm                |  UTM::Twitter    to check mentions, and reply
+│       └── Untappd.pm                |  UTM::Untappd    to fetch data from Untappd
 ├── test                              |  Bunch of test scripts
 ├── twitter-config.yaml               |  Twitter credentials
 └── untappd-map                       |  Main script, the Docker endpoint who does all the work
