@@ -24,7 +24,6 @@ They are located in /test/ folder.
 │   │   ├── Choropleth.pm             |  UTM::Choropleth to colorize, and create the SVG
 │   │   ├── Twitter.pm                |  UTM::Twitter    to check mentions, and reply
 │   │   └── Untappd.pm                |  UTM::Untappd    to fetch data from Untappd
-├── log
 ├── test                              |  Bunch of test scripts
 ├── twitter-config.yaml               |  Twitter credentials
 └── untappd-map                       |  Main script, the Docker endpoint who does all the work
@@ -68,6 +67,24 @@ IMAGE                     COMMAND                  CREATED             STATUS   
 lordslair/untappd-map     "/home/untappd-map/un"   20 hours ago        Up 20 hours         untappd-map
 ```
 
+```
+# docker logs logs
+2017-10-06 09:39:07 Starting daemon
+2017-10-06 09:39:56 :o) Entering loop 1
+2017-10-06 09:39:56 /statuses/mentions_timeline    |  69/ 75
+2017-10-06 09:39:56 /statuses/show/:id             | 900/900
+2017-10-06 09:39:56 /statuses/lookup               | 900/900
+2017-10-06 09:39:56 /statuses/friends              |  15/ 15
+2017-10-06 09:39:56 /statuses/user_timeline        | 898/900
+2017-10-06 09:39:56 /statuses/retweets_of_me       |  75/ 75
+2017-10-06 09:39:56 /statuses/oembed               | 180/180
+2017-10-06 09:39:56 /statuses/retweets/:id         |  75/ 75
+2017-10-06 09:39:56 /statuses/home_timeline        |  15/ 15
+2017-10-06 09:39:56 /statuses/retweeters/ids       |  75/ 75
+2017-10-06 09:39:56 Stop signal caught
+2017-10-06 09:39:57 Stopping daemon
+```
+
 #### Disclaimer/Reminder
 
 >As there's only one script running, it's not wrapped in a start.sh-like script.  
@@ -89,7 +106,7 @@ Invoked on twitter, and the answer with map
 
  - New types of maps
  - lighter container (empty it weights ~175M)
- - logs accessible from outside the container (docker logs stuff)
+ - ~~logs accessible from outside the container (docker logs stuff)~~
  - /data accessible from outside the container (docker volume stuff)
 
 ### Useful stuff
