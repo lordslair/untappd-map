@@ -14,7 +14,6 @@ COPY untappd-map /home/untappd-map/untappd-map
 COPY bashrc.root /root/.bashrc
 
 COPY data/ /home/untappd-map/data/
-COPY log/  /home/untappd-map/log/
 COPY lib/  /home/untappd-map/lib/
 COPY test/ /home/untappd-map/test/
 
