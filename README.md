@@ -68,7 +68,7 @@ lordslair/untappd-map     "/home/untappd-map/un"   20 hours ago        Up 20 hou
 ```
 
 ```
-# docker logs logs
+# docker logs untappd-map
 2017-10-06 09:39:07 Starting daemon
 2017-10-06 09:39:56 :o) Entering loop 1
 2017-10-06 09:39:56 /statuses/mentions_timeline    |  69/ 75
