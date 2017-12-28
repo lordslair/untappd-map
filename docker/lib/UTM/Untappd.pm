@@ -56,6 +56,11 @@ sub getData
         }
         return \%Country;
     }
+    else
+    {
+        print STDERR "[UTM::Untappd::getData] Failed to get data from Untappd\n";
+        return \%Country;
+    }
 }
 
 1;
