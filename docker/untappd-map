@@ -38,8 +38,18 @@ until ($dieNow) {
 
     $loop++;
     logEntry(":o) Entering loop $loop");
+    my $Mentions;
 
-    my $Mentions = UTM::Twitter::getMentions or die "Failed to getMentions $!";
+    eval
+    {
+        $Mentions = UTM::Twitter::getMentions or die "Failed to getMentions $!";
+        1;
+    } or do {
+        my $error = $@ || 'Unknown failure';
+        chomp ($error);
+        logEntry("ERROR: $error");
+        next;
+    };
 
     foreach my $id ( sort keys %{$Mentions} )
     {
