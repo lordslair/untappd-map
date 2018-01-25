@@ -107,7 +107,7 @@ Invoked on twitter, and the answer with map
 ### Todos
 
  - New types of maps
- - ~~lighter container (empty it weights ~175M) [Done in 1.06 with Alpine]~~
+ - ~~lighter container (empty it weights 175M) [Done in 1.06 with Alpine]~~
  - ~~logs accessible from outside the container (docker logs stuff)~~
  - /data accessible from outside the container (docker volume stuff)
 
