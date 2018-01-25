@@ -18,7 +18,8 @@ They are located in /test/ folder.
 
 ```
 ├── data                              |  Map template and results
-├── Dockerfile                        |  To build the docker container
+├── Dockerfile                        |  To build the docker container (Debian:stretch)
+├── Dockerfile-alpine                 |  To build the docker container (ALpine:3.7)
 ├── lib
 │   └── UTM
 │       ├── Choropleth.pm             |  UTM::Choropleth to colorize, and create the SVG
@@ -54,7 +55,8 @@ docker build --no-cache -t lordslair/untappd-map .
 ```
 # docker images
 REPOSITORY              TAG                 IMAGE ID            SIZE
-lordslair/untappd-map   latest              d00e8d4185a7        178.3 MB
+lordslair/untappd-map   debian              d00e8d4185a7        178.3 MB
+lordslair/untappd-map   alpine              9c6a2c97fed3        68.87 MB
 ```
 
 ```
@@ -105,7 +107,7 @@ Invoked on twitter, and the answer with map
 ### Todos
 
  - New types of maps
- - lighter container (empty it weights ~175M)
+ - ~~lighter container (empty it weights ~175M) [Done in 1.06 with Alpine]~~
  - ~~logs accessible from outside the container (docker logs stuff)~~
  - /data accessible from outside the container (docker volume stuff)
 
