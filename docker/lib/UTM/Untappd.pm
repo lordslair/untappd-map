@@ -47,6 +47,7 @@ sub getData
                 if ( $Country{'Scotland'} ) { $Country{'Great Britain'}{'count'} += $Country{'Scotland'}{'count'} ; delete $Country{'Scotland'} }
                 if ( $Country{'England'}  ) { $Country{'Great Britain'}{'count'} += $Country{'England'}{'count'}  ; delete $Country{'England'}  }
                 if ( $Country{'Wales'}    ) { $Country{'Great Britain'}{'count'} += $Country{'Wales'}{'count'}    ; delete $Country{'Wales'}    }
+               if ( $Country{'Northern Ireland'} ) { $Country{'Great Britain'}{'count'} += $Country{'Northern Ireland'}{'count'} ; delete $Country{'Northern Ireland'} }
              }
         }
         return \%Country;
