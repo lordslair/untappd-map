@@ -48,6 +48,8 @@ sub getData
                 if ( $Country{'England'}          ) { $Country{'Great Britain'}{'count'} += $Country{'England'}{'count'}          ; delete $Country{'England'}          }
                 if ( $Country{'Wales'}            ) { $Country{'Great Britain'}{'count'} += $Country{'Wales'}{'count'}            ; delete $Country{'Wales'}            }
                 if ( $Country{'Northern Ireland'} ) { $Country{'Great Britain'}{'count'} += $Country{'Northern Ireland'}{'count'} ; delete $Country{'Northern Ireland'} }
+                # Let's call that the "Crappy HardCoded Carbo fix"
+                if ( $Country{'Cape Verde'} ) { delete $Country{'Cape Verde'} }
              }
         }
         return \%Country;
