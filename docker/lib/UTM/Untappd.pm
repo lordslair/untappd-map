@@ -21,16 +21,11 @@ sub getData
     if ($response->is_success)
     {
         my @lines = split /\n/, $response->content;
-
-        my $linenbr = 0;
-        my %hash;
-        $hash{$linenbr++} = $_ for (@lines);
-
-        foreach my $line (sort keys %hash)
+        foreach my $line (@lines)
         {
-            if ( $hash{$line} =~ /(country_picker)/ )
+            if ( $line =~ /<select id="country_picker">(.*)<\/select>/ )
             {
-                my $select = $hash{$line +2 };
+                $select = $1;
                 my @countries = split (/<\/option>/, $select);
                 my $biggest = 0;
 
