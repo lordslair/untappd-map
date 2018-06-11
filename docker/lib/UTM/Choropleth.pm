@@ -65,6 +65,7 @@ sub Code
     Locale::Country::add_country_alias("Russian Federation", "Russia");
     Locale::Country::add_country_alias("Monaco","Principality of Monaco");
     Locale::Country::add_country_alias("Republic of Moldova","Moldova");
+    Locale::Country::add_country_alias("Myanmar", "Myanmar (Burma)");
 
     foreach my $country ( sort keys %Country )
     {
