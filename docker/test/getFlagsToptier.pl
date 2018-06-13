@@ -2,9 +2,6 @@
 use strict;
 use warnings;
 
-use Emoji::NationalFlag qw/ code2flag /;
-use utf8;
-
 use lib '/home/untappd-map/lib';
 use UTM::Choropleth;
 use UTM::Untappd;
@@ -23,7 +20,7 @@ foreach my $country (reverse sort { $Coded_Country{$a}{'count'} <=> $Coded_Count
     $counter--;
 
     my $code  = $Coded_Country{$country}{'code'};
-    my $flag  = code2flag($Coded_Country{$country}{'code'});
+    my $flag  = $Coded_Country{$country}{'flag'};
     my $count = $Coded_Country{$country}{'count'};
 
     printf "%-4s | %-4s | %-20s | %-4d\n", $code, $flag, $country, $count;
