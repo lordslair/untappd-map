@@ -89,4 +89,13 @@ sub SendTweetMedia
     my $update = $twitter->update_with_media({ in_reply_to_status_id => $id, status => $text, media => [ $media ] });
 }
 
+sub SendTweet
+{
+    my $text   = shift;
+
+    my $update = $twitter->update({ status => $text });
+
+    return $update;
+}
+
 1;
