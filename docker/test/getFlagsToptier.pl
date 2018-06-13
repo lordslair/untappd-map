@@ -1,0 +1,31 @@
+#!/usr/bin/perl
+use strict;
+use warnings;
+
+use Emoji::NationalFlag qw/ code2flag /;
+use utf8;
+
+use lib '/home/untappd-map/lib';
+use UTM::Choropleth;
+use UTM::Untappd;
+
+binmode(STDOUT, ":utf8");
+
+my $username          = 'Sprayalot';
+my $counter           = 10;
+my $Country_ref       = UTM::Untappd::getData($username);
+my %Country           = %{$Country_ref};
+my $Coded_Country_ref = UTM::Choropleth::Code($Country_ref);
+my %Coded_Country     = %{$Coded_Country_ref};
+
+foreach my $country (reverse sort { $Coded_Country{$a}{'count'} <=> $Coded_Country{$b}{'count'} } keys %Coded_Country)
+{
+    $counter--;
+
+    my $code  = $Coded_Country{$country}{'code'};
+    my $flag  = code2flag($Coded_Country{$country}{'code'});
+    my $count = $Coded_Country{$country}{'count'};
+
+    printf "%-4s | %-4s | %-20s | %-4d\n", $code, $flag, $country, $count;
+    if ( $counter == 0 ) { last }
+}
