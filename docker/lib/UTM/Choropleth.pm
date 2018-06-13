@@ -59,6 +59,7 @@ sub Code
     my %Country = %{ $Country_ref };
 
     use Locale::Country;
+    use Emoji::NationalFlag qw/ code2flag /;
 
     # We need to redefine some countries names
     Locale::Country::add_country_alias("Lao People's Democratic Republic", "Laos");
@@ -70,6 +71,7 @@ sub Code
     foreach my $country ( sort keys %Country )
     {
         $Country{$country}{'code'} = country2code($country, LOCALE_CODE_ALPHA_2);
+        $Country{$country}{'flag'} = code2flag($Country{$country}{'code'});
     }
     return \%Country;
 }
