@@ -117,4 +117,25 @@ sub Draw
     close $out_filehandle;
 }
 
+sub Top
+{
+    my $username          = shift;
+    my $counter           = 10;
+    my $Coded_Country_ref = shift;
+    my %Coded_Country     = %{$Coded_Country_ref};
+    my $message;
+
+    foreach my $country (reverse sort { $Coded_Country{$a}{'count'} <=> $Coded_Country{$b}{'count'} } keys %Coded_Country)
+    {
+        $counter--;
+
+        my $flag  = $Coded_Country{$country}{'flag'};
+        my $count = $Coded_Country{$country}{'count'};
+
+        $message .= sprintf "%-4s | %-4d\n", $flag, $count;
+        if ( $counter == 0 ) { last }
+    }
+    return $message;
+}
+
 1;
