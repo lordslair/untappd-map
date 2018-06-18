@@ -91,6 +91,7 @@ sub SendTweetMedia
 
 sub SendTweet
 {
+    my $id     = shift;
     my $text   = shift;
 
     my $update = $twitter->update({ status => $text });
