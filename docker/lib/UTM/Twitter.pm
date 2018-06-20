@@ -94,7 +94,7 @@ sub SendTweet
     my $id     = shift;
     my $text   = shift;
 
-    my $update = $twitter->update({ status => $text });
+    my $update = $twitter->update({ in_reply_to_status_id => $id, status => $text });
 
     return $update;
 }
