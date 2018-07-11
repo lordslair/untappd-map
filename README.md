@@ -38,6 +38,7 @@ I used mainy :
 * [Net::Twitter::Lite::WithAPIv1_1;][CPANTwitt] - Easy Twitter API implementation
 * [Image::LibRSVG][CPANrSVG] - SVG to PNG conversion
 * [Locale::Country] - Translation from <Countryname> to ALPHA-2 code
+* [Emoji::NationalFlag] - Translation from <ALPHA-2> to Emoji
 * [YAML::Tiny] - THE easy way to deal with YAML files
 
 And of course GitHub to store all these shenanigans. 
