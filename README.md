@@ -11,6 +11,8 @@ Actually, as 1.0, it works this way, as soon as you send your Untappd username t
  - Convert the SVG into PNG
  - Reply to your tweet with the PNG as media
 
+v1.1 introduced a second reply, with a Top10 of Countries using Flag Emoji  
+
 ### Which script does what ?
 
 I added multiples test scripts as I was coding this to help me, ant test almost every function independantly.  
@@ -101,7 +103,7 @@ Random generated Choropleth (script included in /test/)
 
 ![World][Screenshot-Map-small]
 
-Invoked on twitter, and the answer with map  
+Invoked on twitter, and the answer with map, and Top1O  
 
 ![Twitter answer][Screenshot-Twitter]
 
