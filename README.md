@@ -76,18 +76,28 @@ lordslair/untappd-map     "/home/untappd-map/un"   20 hours ago        Up 20 hou
 # docker logs untappd-map
 2017-10-06 09:39:07 Starting daemon
 2017-10-06 09:39:56 :o) Entering loop 1
-2017-10-06 09:39:56 /statuses/mentions_timeline    |  69/ 75
-2017-10-06 09:39:56 /statuses/show/:id             | 900/900
-2017-10-06 09:39:56 /statuses/lookup               | 900/900
-2017-10-06 09:39:56 /statuses/friends              |  15/ 15
-2017-10-06 09:39:56 /statuses/user_timeline        | 898/900
-2017-10-06 09:39:56 /statuses/retweets_of_me       |  75/ 75
-2017-10-06 09:39:56 /statuses/oembed               | 180/180
-2017-10-06 09:39:56 /statuses/retweets/:id         |  75/ 75
-2017-10-06 09:39:56 /statuses/home_timeline        |  15/ 15
-2017-10-06 09:39:56 /statuses/retweeters/ids       |  75/ 75
-2017-10-06 09:39:56 Stop signal caught
-2017-10-06 09:39:57 Stopping daemon
+2017-10-06 09:39:56   Got a not yet replied mention (@UntappdMap !Sprayalot)
+2017-10-06 09:39:56 [Sprayalot]    Got to reply
+2017-10-06 09:39:57 [Sprayalot]    Got %Country
+2017-10-06 09:39:57 [Sprayalot]    Got %Coded_Country
+2017-10-06 09:39:57 [Sprayalot]    Got %Colored_Country
+2017-10-06 09:39:57 [Sprayalot]    Choropleth::Draw requested
+2017-10-06 09:39:58 [Sprayalot]    PNG converted
+2017-10-06 09:39:58 [Sprayalot]    Will send to @Lordslair
+2017-10-06 09:39:59 [Sprayalot]    Tweet sent (reply_id:1019563088868184064) [1019603516741029888]
+2017-10-06 09:39:59 [Sprayalot]    Top10 sent (reply_id:1019603516741029888)
+2017-10-06 09:39:59 /statuses/mentions_timeline    |  69/ 75
+2017-10-06 09:39:59 /statuses/show/:id             | 900/900
+2017-10-06 09:39:59 /statuses/lookup               | 900/900
+2017-10-06 09:39:59 /statuses/friends              |  15/ 15
+2017-10-06 09:39:59 /statuses/user_timeline        | 898/900
+2017-10-06 09:39:59 /statuses/retweets_of_me       |  75/ 75
+2017-10-06 09:39:59 /statuses/oembed               | 180/180
+2017-10-06 09:39:59 /statuses/retweets/:id         |  75/ 75
+2017-10-06 09:39:59 /statuses/home_timeline        |  15/ 15
+2017-10-06 09:39:59 /statuses/retweeters/ids       |  75/ 75
+2017-10-06 09:39:59 Stop signal caught
+2017-10-06 09:40:00 Stopping daemon
 ```
 
 #### Disclaimer/Reminder
