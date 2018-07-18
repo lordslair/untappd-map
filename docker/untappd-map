@@ -64,7 +64,8 @@ until ($dieNow) {
         }
         else
         {
-            if ( $Mentions->{$id}{'text'} =~ m/!(\w*)/ )
+            # Mentions should have this format : "@UntappdMap !<UntappdUsername>"
+            if (( $Mentions->{$id}{'text'} =~ m/[!](\w*)/ ) and ( $Mentions->{$id}{'text'} =~ m/^\@UntappdMap/ ))
             {
                 logEntry("  Got a not yet replied mention ($Mentions->{$id}{'text'})" );
                 $username = $1;
