@@ -135,4 +135,4 @@ Invoked on twitter, and the answer with map, and Top1O
    [daemon]: <http://www.andrewault.net/2010/05/27/creating-a-perl-daemon-in-ubuntu/>
 
    [Screenshot-Map-small]: <https://raw.githubusercontent.com/lordslair/untappd-map/master/Screenshot-Map-small.PNG>
-   [Screenshot-Twitter]: <https://raw.githubusercontent.com/lordslair/untappd-map/master/Screenshot-Twitter.PNG>
+   [Screenshot-Twitter]: <https://github.com/lordslair/untappd-map/raw/5601d51fe0636ee076f94156275d5889906c30c3/Screenshot-Twitter.PNG>
