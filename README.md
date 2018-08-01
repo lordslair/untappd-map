@@ -113,7 +113,7 @@ Random generated Choropleth (script included in /test/)
 
 ![World][Screenshot-Map-small]
 
-Invoked on twitter, and the answer with map, and Top1O  
+Invoked on twitter, and the answer with map, and Top10  
 
 ![Twitter answer][Screenshot-Twitter]
 
