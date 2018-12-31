@@ -20,37 +20,40 @@ sub getData
     my %Country;
     if ($response->is_success)
     {
+        my $line_idx = 0;
         my @lines = split /\n/, $response->content;
         foreach my $line (@lines)
         {
-            if ( $line =~ /<select id="country_picker">(.*)<\/select>/ )
+            if ( $line =~ /<select id="country_picker">/ ) { last }
+            $line_idx++;
+        }
+        if ( $lines[$line_idx+2] )
+        {
+            $select = $lines[$line_idx+2];
+            my @countries = split (/<\/option>/, $select);
+            my $biggest = 0;
+
+            foreach my $country (@countries)
             {
-                $select = $1;
-                my @countries = split (/<\/option>/, $select);
-                my $biggest = 0;
-
-                foreach my $country (@countries)
+                if ( $country =~ />\s*(.*)\s*\((\d*)\)/ )
                 {
-                    if ( $country =~ />\s*(.*)\s*\((\d*)\)/ )
-                    {
-                        my $country = $1;
-                        my $count   = $2;
-                           $country =~ s/\/.*//;
-                           $country =~ s/\s+$//;
-                        $Country{$country}{'count'} = $count;
+                    my $country = $1;
+                    my $count   = $2;
+                       $country =~ s/\/.*//;
+                       $country =~ s/\s+$//;
+                    $Country{$country}{'count'} = $count;
 
-                        if ( $biggest < $count ) { $biggest = $count }
-                    }
+                    if ( $biggest < $count ) { $biggest = $count }
                 }
+            }
 
-                # Let's cheat a bit for Great Britain
-                if ( $Country{'Scotland'}         ) { $Country{'Great Britain'}{'count'} += $Country{'Scotland'}{'count'}         ; delete $Country{'Scotland'}         }
-                if ( $Country{'England'}          ) { $Country{'Great Britain'}{'count'} += $Country{'England'}{'count'}          ; delete $Country{'England'}          }
-                if ( $Country{'Wales'}            ) { $Country{'Great Britain'}{'count'} += $Country{'Wales'}{'count'}            ; delete $Country{'Wales'}            }
-                if ( $Country{'Northern Ireland'} ) { $Country{'Great Britain'}{'count'} += $Country{'Northern Ireland'}{'count'} ; delete $Country{'Northern Ireland'} }
-                # Let's call that the "Crappy HardCoded Carbo fix"
-                if ( $Country{'Cape Verde'} ) { delete $Country{'Cape Verde'} }
-             }
+            # Let's cheat a bit for Great Britain
+            if ( $Country{'Scotland'}         ) { $Country{'Great Britain'}{'count'} += $Country{'Scotland'}{'count'}         ; delete $Country{'Scotland'}         }
+            if ( $Country{'England'}          ) { $Country{'Great Britain'}{'count'} += $Country{'England'}{'count'}          ; delete $Country{'England'}          }
+            if ( $Country{'Wales'}            ) { $Country{'Great Britain'}{'count'} += $Country{'Wales'}{'count'}            ; delete $Country{'Wales'}            }
+            if ( $Country{'Northern Ireland'} ) { $Country{'Great Britain'}{'count'} += $Country{'Northern Ireland'}{'count'} ; delete $Country{'Northern Ireland'} }
+            # Let's call that the "Crappy HardCoded Carbo fix"
+            if ( $Country{'Cape Verde'} ) { delete $Country{'Cape Verde'} }
         }
         return \%Country;
     }
