@@ -22,10 +22,9 @@ apk update \
                        Net::Twitter::Lite::WithAPIv1_1 \
                        Net::OAuth \
                        Emoji::NationalFlag \
-   && mkdir /untappd-map \
    && apk del .build-deps \
    && rm -rf /root/.cpanm
 
 echo "`date +"%F %X"` Build done ..."
 
-exec /code/untappd-map
+exec /home/untappd-map/untappd-map
