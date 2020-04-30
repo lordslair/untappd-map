@@ -65,7 +65,7 @@ until ($dieNow) {
         else
         {
             # Mentions should have this format : "@UntappdMap !<UntappdUsername>"
-            if ( $Mentions->{$id}{'text'} =~ m/^\@UntappdMap/ ) 
+            if ( $Mentions->{$id}{'text'} =~ m/^\@UntappdMap/ )
             {
                 if ( $Mentions->{$id}{'text'} =~ m/[!](\w*)/ )
                 {
