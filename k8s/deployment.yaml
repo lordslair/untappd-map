@@ -24,13 +24,13 @@ spec:
          "(
               wget   https://github.com/lordslair/untappd-map/archive/master.zip -O /tmp/utm.zip &&
               unzip  /tmp/utm.zip -d /tmp/ &&
-              cp -a  /tmp/untappd-map-master/docker/* /code/ &&
+              cp -a  /tmp/untappd-map-master/docker/* /home/untappd-map/ &&
               rm -rf /tmp/untappd-map-master &&
               rm -rf /tmp/utm.zip
           ) || echo 1"
         ]
         volumeMounts:
-        - mountPath: /code
+        - mountPath: /home/untappd-map
           name: code
 
       containers:
@@ -38,7 +38,7 @@ spec:
         image: alpine:3.7
         command: ["/code/entrypoint.sh"]
         volumeMounts:
-        - mountPath: /code
+        - mountPath: /home/untappd-map
           name: code
       restartPolicy: Always
 
