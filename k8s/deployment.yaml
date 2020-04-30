@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: untappd-map
+  name: untappd-map
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: untappd-map
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: untappd-map
+    spec:
+      initContainers:
+      - name: untappd-map-init
+        image: busybox
+        command: ["/bin/sh"]
+        args: [
+         "-c",
+         "(
+              wget   https://github.com/lordslair/untappd-map/archive/master.zip -O /tmp/utm.zip &&
+              unzip  /tmp/utm.zip -d /tmp/ &&
+              cp -a  /tmp/untappd-map-master/docker/* /code/ &&
+              rm -rf /tmp/untappd-map-master &&
+              rm -rf /tmp/utm.zip
+          ) || echo 1"
+        ]
+        volumeMounts:
+        - mountPath: /code
+          name: code
+
+      containers:
+      - name: untappd-map
+        image: alpine:3.7
+        command: ["/code/entrypoint.sh"]
+        volumeMounts:
+        - mountPath: /code
+          name: code
+      restartPolicy: Always
+
+      volumes:
+      - name: code
+        persistentVolumeClaim:
+          claimName: untappd-map-code-perl
