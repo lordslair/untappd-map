@@ -37,6 +37,27 @@ spec:
       - name: untappd-map
         image: alpine:3.7
         command: ["/code/entrypoint.sh"]
+        env:
+        - name: TW_AccessTokenSecret
+          valueFrom:
+            secretKeyRef:
+              name: untappd-map
+              key: access_token_secret
+        - name: TW_ConsumerSecret
+          valueFrom:
+            secretKeyRef:
+              name: untappd-map
+              key: consumer_secret
+        - name: TW_AccessToken
+          valueFrom:
+            secretKeyRef:
+              name: untappd-map
+              key: access_token
+        - name: TW_ConsumerKey
+          valueFrom:
+            secretKeyRef:
+              name: untappd-map
+              key: consumer_key
         volumeMounts:
         - mountPath: /home/untappd-map
           name: code

@@ -4,19 +4,16 @@ use strict;
 use warnings;
 
 use Net::Twitter::Lite::WithAPIv1_1;
-use YAML::Tiny;
 
 #
 # Variables initialization
 #
 
-my $twitterfile = '/home/untappd-map/twitter-config.yaml';
-my $twittyaml = YAML::Tiny->read( $twitterfile );
 my $twitter = Net::Twitter::Lite::WithAPIv1_1->new(
-    access_token_secret => $twittyaml->[0]{AccessTokenSecret},
-    consumer_secret     => $twittyaml->[0]{ConsumerSecret},
-    access_token        => $twittyaml->[0]{AccessToken},
-    consumer_key        => $twittyaml->[0]{ConsumerKey},
+    access_token_secret => $ENV{'TW_AccessTokenSecret'},
+    consumer_secret     => $ENV{'TW_ConsumerSecret'},
+    access_token        => $ENV{'TW_AccessToken'},
+    consumer_key        => $ENV{'TW_ConsumerKey'},
     user_agent          => 'UntappdMap Bot',
     ssl => 1,
 );
