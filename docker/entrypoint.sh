@@ -16,8 +16,7 @@ apk update \
                                     tzdata \
     && cp /usr/share/zoneinfo/Europe/Paris /etc/localtime \
     && curl -L https://cpanmin.us | perl - App::cpanminus --no-wget \
-    && cpanm --no-wget YAML::Tiny \
-                       File::Pid \
+    && cpanm --no-wget File::Pid \
                        Image::LibRSVG \
                        Net::Twitter::Lite::WithAPIv1_1 \
                        Net::OAuth \
