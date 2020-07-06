@@ -3,7 +3,7 @@
 use strict;
 use warnings;
 
-use lib '/home/untappd-map/lib';
+use lib '/code/lib';
 use UTM::Choropleth;
 
 #
@@ -12,8 +12,8 @@ use UTM::Choropleth;
 
 my %Country;
 my $biggest     = 200;
-my $input_file  = '/home/untappd-map/data/BlankMap-World6.svg';
-my $output_file = '/home/untappd-map/data/getChoropleth.pl.svg';
+my $input_file  = '/code/data/BlankMap-World6.svg';
+my $output_file = '/code/data/getChoropleth.pl.svg';
 
 $Country{'France'}{'count'}  = 150;
 $Country{'France'}{'code'}   = 'fr';

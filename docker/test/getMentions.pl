@@ -3,7 +3,7 @@
 use strict;
 use warnings;
 
-use lib '/home/untappd-map/lib';
+use lib '/code/lib';
 use UTM::Twitter;
 
 binmode(STDOUT, ":utf8");

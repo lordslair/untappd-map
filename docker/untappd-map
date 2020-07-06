@@ -5,7 +5,7 @@ use warnings;
 use File::Pid;
 use Image::LibRSVG;
 
-use lib '/home/untappd-map/lib';
+use lib '/code/lib';
 use UTM::Untappd;
 use UTM::Choropleth;
 use UTM::Twitter;
@@ -89,8 +89,8 @@ until ($dieNow) {
             }
 
             my $biggest     = 0;
-            my $input_file  = '/home/untappd-map/data/BlankMap-World6.svg';
-            my $output_file = "/home/untappd-map/data/$username.svg";
+            my $input_file  = '/code/data/BlankMap-World6.svg';
+            my $output_file = "/code/data/$username.svg";
 
             foreach my $country ( sort keys %Country )
             {
@@ -139,7 +139,7 @@ sub logEntry {
 
 # catch signals and end the program if one is caught.
 sub signalHandler {
-    open DATA, "/home/untappd-map/test/getTwitterRateLimit.pl |" or die "Couldn't execute program: $!";
+    open DATA, "/code/test/getTwitterRateLimit.pl |" or die "Couldn't execute program: $!";
         while ( defined( my $line = <DATA> )  )
         {
             chomp($line);

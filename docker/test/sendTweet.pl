@@ -6,7 +6,7 @@ use Emoji::NationalFlag qw/ code2flag /;
 use utf8;
 use Data::Dumper;
 
-use lib '/home/untappd-map/lib';
+use lib '/code/lib';
 use UTM::Twitter;
 
 my $update_ref = UTM::Twitter::SendTweet( code2flag('jp') ) or die "Failed toSendTweet $!";

@@ -2,7 +2,7 @@
 use strict;
 use warnings;
 
-use lib '/home/untappd-map/lib';
+use lib '/code/lib';
 use UTM::Choropleth;
 use UTM::Untappd;
 
