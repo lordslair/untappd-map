@@ -31,39 +31,48 @@ sub Reply
 sub getMentions
 {
     my %Mentions;
-    my $lastmsg_id  = $twitter->mentions({ count => 1 });
-    while ( )
+    my $lastmsg_id  = $twitter->mentions({ count => 1 })->[0]{'id'};
+    if ($lastmsg_id)
     {
-        my $mentions    = $twitter->mentions({ max_id => $lastmsg_id, count => 20 });
-        for my $mention ( @$mentions )
+        while ( )
         {
-            $Mentions{$mention->{id}}{'sender_id'}  = $mention->{user}{id};
-            $Mentions{$mention->{id}}{'created_at'} = $mention->{created_at};
-            $Mentions{$mention->{id}}{'text'}       = $mention->{text};
-            $Mentions{$mention->{id}}{'sender'}     = $mention->{user}{name};
-
-            $lastmsg_id = $mention->{id} - 1;
-        }
-        if ( scalar(@$mentions) != 20 ) { last }
-    }
-
-    $lastmsg_id  = $twitter->user_timeline({ count => 1 });
-    while ( )
-    {
-        my $replies    = $twitter->user_timeline({ max_id => $lastmsg_id, count => 20 });
-        for my $reply ( @$replies )
-        {
-            my $id = $reply->{in_reply_to_status_id};
-            if ( $id )
+            my $mentions    = $twitter->mentions({ max_id => $lastmsg_id, count => 20 });
+            for my $mention ( @$mentions )
             {
-            # This tweet is already a response to someone's mention
-                $Mentions{$id}{'replied'} = 'yes';
+                $Mentions{$mention->{id}}{'sender_id'}  = $mention->{user}{id};
+                $Mentions{$mention->{id}}{'created_at'} = $mention->{created_at};
+                $Mentions{$mention->{id}}{'text'}       = $mention->{text};
+                $Mentions{$mention->{id}}{'sender'}     = $mention->{user}{name};
+
+                $lastmsg_id = $mention->{id} - 1;
             }
-            else { }
-            $lastmsg_id = $reply->{id} - 1;
+            if ( scalar(@$mentions) != 20 ) { last }
         }
-        if ( scalar(@$replies) != 20 ) { last }
     }
+    else { print "\$lastmsg_id does not exist"}
+
+    $lastmsg_id  = $twitter->user_timeline({ count => 1 })->[0]{'id'};
+    if ($lastmsg_id)
+    {
+        while ( )
+        {
+            my $replies    = $twitter->user_timeline({ max_id => $lastmsg_id, count => 20 });
+            for my $reply ( @$replies )
+            {
+                my $id = $reply->{in_reply_to_status_id};
+                if ( $id )
+                {
+                    # This tweet is already a response to someone's mention
+                    $Mentions{$id}{'replied'} = 'yes';
+                }
+                else { }
+                $lastmsg_id = $reply->{id} - 1;
+            }
+            if ( scalar(@$replies) != 20 ) { last }
+        }
+    }
+    else { print "\$lastmsg_id does not exist"}
+
     return \%Mentions;
 }
 
