@@ -12,6 +12,7 @@ Actually, as 1.0, it works this way, as soon as you send your Untappd username t
  - Reply to your tweet with the PNG as media
 
 v1.1 introduced a second reply, with a Top10 of Countries using Flag Emoji  
+v1.2 works in a stateless container (k8s)  
 
 ### Which script does what ?
 
@@ -20,15 +21,12 @@ They are located in /test/ folder.
 
 ```
 ├── data                              |  Map template and results
-├── Dockerfile                        |  To build the docker container (Debian:stretch)
-├── Dockerfile-alpine                 |  To build the docker container (ALpine:3.7)
 ├── lib
 │   └── UTM
 │       ├── Choropleth.pm             |  UTM::Choropleth to colorize, and create the SVG
 │       ├── Twitter.pm                |  UTM::Twitter    to check mentions, and reply
 │       └── Untappd.pm                |  UTM::Untappd    to fetch data from Untappd
 ├── test                              |  Bunch of test scripts
-├── twitter-config.yaml               |  Twitter credentials
 └── untappd-map                       |  Main script, the Docker endpoint who does all the work
 ```
 
@@ -41,9 +39,8 @@ I used mainy :
 * [Image::LibRSVG][CPANrSVG] - SVG to PNG conversion
 * [Locale::Country] - Translation from <Countryname> to ALPHA-2 code
 * [Emoji::NationalFlag] - Translation from <ALPHA-2> to Emoji
-* [YAML::Tiny] - THE easy way to deal with YAML files
 
-And of course GitHub to store all these shenanigans. 
+And of course GitHub to store all these shenanigans.
 
 ### Installation
 
@@ -52,28 +49,20 @@ The script is aimed to run in a Docker container. Could work without it, but mor
 ```
 git clone https://github.com/lordslair/untappd-map
 cd untappd-map
-docker build --no-cache -t lordslair/untappd-map .
+kubectl apply -f namespace.yaml
+kubectl apply -f secrets.yaml
+kubectl apply -f deployment.yaml
 ```
 
 ```
-# docker images
-REPOSITORY              TAG                 IMAGE ID            SIZE
-lordslair/untappd-map   debian              d00e8d4185a7        178.3 MB
-lordslair/untappd-map   alpine              9c6a2c97fed3        68.87 MB
+# kubectl get pods
+NAME                           READY   STATUS    RESTARTS   AGE
+untappd-map-6cff6576d6-t6248   1/1     Running   0          18h
 ```
 
 ```
-docker run --name untappd-map -d lordslair/untappd-map
-```
-
-```
-docker ps
-IMAGE                     COMMAND                  CREATED             STATUS              NAMES
-lordslair/untappd-map     "/home/untappd-map/un"   20 hours ago        Up 20 hours         untappd-map
-```
-
-```
-# docker logs untappd-map
+# kubectl logs -f untappd-map-6cff6576d6-t6248
+[...]
 2017-10-06 09:39:07 Starting daemon
 2017-10-06 09:39:56 :o) Entering loop 1
 2017-10-06 09:39:56   Got a not yet replied mention (@UntappdMap !Sprayalot)
@@ -120,14 +109,13 @@ Invoked on twitter, and the answer with map, and Top10
 ### Todos
 
  - New types of maps
- - ~~lighter container (empty it weights 175M) [Done in 1.06 with Alpine]~~
+ - ~~lighter container (empty it weights 175M) [Done in 1.06 with Alpine (75M ATM)]~~
  - ~~logs accessible from outside the container (docker logs stuff)~~
- - /data accessible from outside the container (docker volume stuff)
 
 ### Useful stuff
-   
+
    * [Daemon exemple script][daemon]
-   
+
 ---
    [WIKImap]: <https://commons.wikimedia.org/wiki/Category:Blank_SVG_maps_of_the_world>
    [CPANTwitt]: <http://search.cpan.org/~mmims/Net-Twitter-Lite-0.12008/lib/Net/Twitter/Lite/WithAPIv1_1.pod>
