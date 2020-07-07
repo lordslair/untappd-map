@@ -26,4 +26,12 @@ apk update \
 
 echo "`date +"%F %X"` Build done ..."
 
-exec /home/untappd-map/untappd-map
+echo "`date +"%F %X"` Loading Perl scripts ..."
+mkdir /code && cd /code
+wget https://github.com/lordslair/untappd-map/archive/master.zip -O /tmp/utm.zip &&
+unzip  /tmp/utm.zip -d /tmp/ &&
+cp -a  /tmp/untappd-map-master/docker/* /code/ &&
+rm -rf /tmp/untappd-map-master /tmp/utm.zip
+echo "`date +"%F %X"` Loading done ..."
+
+exec /code/untappd-map

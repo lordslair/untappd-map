@@ -15,28 +15,18 @@ spec:
       labels:
         app: untappd-map
     spec:
-      initContainers:
-      - name: untappd-map-init
-        image: busybox
-        command: ["/bin/sh"]
-        args: [
-         "-c",
-         "(
-              wget   https://github.com/lordslair/untappd-map/archive/master.zip -O /tmp/utm.zip &&
-              unzip  /tmp/utm.zip -d /tmp/ &&
-              cp -a  /tmp/untappd-map-master/docker/* /home/untappd-map/ &&
-              rm -rf /tmp/untappd-map-master &&
-              rm -rf /tmp/utm.zip
-          ) || echo 1"
-        ]
-        volumeMounts:
-        - mountPath: /home/untappd-map
-          name: code
+      restartPolicy: Always
 
       containers:
       - name: untappd-map
         image: alpine:3.7
-        command: ["/code/entrypoint.sh"]
+        command: ["/bin/sh"]
+        args: [
+         "-c",
+         "(
+              wget -O - https://raw.githubusercontent.com/lordslair/untappd-map/master/docker/entrypoint.sh | sh
+          ) || echo 1"
+        ]
         env:
         - name: TW_AccessTokenSecret
           valueFrom:
@@ -58,12 +48,3 @@ spec:
             secretKeyRef:
               name: untappd-map
               key: consumer_key
-        volumeMounts:
-        - mountPath: /home/untappd-map
-          name: code
-      restartPolicy: Always
-
-      volumes:
-      - name: code
-        persistentVolumeClaim:
-          claimName: untappd-map-code-perl
