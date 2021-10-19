@@ -24,7 +24,7 @@ sub getData
         my @lines = split /\n/, $response->content;
         foreach my $line (@lines)
         {
-            if ( $line =~ /<select id="country_picker">/ ) { last }
+            if ( $line =~ /<select id="country_picker" aria-label="Country picker">/ ) { last }
             $line_idx++;
         }
         if ( $lines[$line_idx+2] )
