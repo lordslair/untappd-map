@@ -19,7 +19,7 @@ spec:
 
       containers:
       - name: untappd-map
-        image: alpine:3.7
+        image: alpine:3.12
         command: ["/bin/sh"]
         args: [
          "-c",
