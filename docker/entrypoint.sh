@@ -16,11 +16,12 @@ apk update \
                                     tzdata \
     && cp /usr/share/zoneinfo/Europe/Paris /etc/localtime \
     && curl -L https://cpanmin.us | perl - App::cpanminus --no-wget \
-    && cpanm --no-wget File::Pid \
+    && cpanm --no-wget Locale::Country \
+                       File::Pid \
                        Image::LibRSVG \
+                       Emoji::NationalFlag \
                        Net::Twitter::Lite::WithAPIv1_1 \
                        Net::OAuth \
-                       Emoji::NationalFlag \
    && apk del .build-deps \
    && rm -rf /root/.cpanm
 
